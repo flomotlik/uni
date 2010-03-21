@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Sun Mar 21 14:51:10 CET 2010
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=document.tex
+outputFile=SeminarSoftwareEntwicklung-FlorianMotlik.pdf
+langSpell=en
+markDer=true
+srcDir=
