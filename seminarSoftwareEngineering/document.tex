@@ -15,16 +15,65 @@
 \begin{abstract}
 %TODO
 Some Abstract Text
+%TODO give description of word Script
 \end{abstract}
 
 \section{What is a Scripting Language}
 This Section describes what a Scripting language is, it's characteristics and
 the reasons for using a scripting language in your project.
-\subsection{Characteristics}
-Characteristics shared by scripting languages.
+
+Scripting languages can be traditionally described as lightweight easy to use
+languages for small scripting and embedded purposes. For example scripting
+languages like PERL or Python are heavily used in server infrastructure to
+provide common tasks. Their easy, but powerful syntax often leads to an increased
+productivity in writing applications. For those reasons they also often used to
+script bigger applications like games.
+
+Although they started as languages for small tasks scripting languages have
+already outgrown that field. They are currently used for big desktop as well
+as web development. Examples would be Linux desktop applications written in
+Python or web development with Ruby on Rails.
+\subsection{Characteristics} \label{sec-characteristics}
+This section will give an overview over the characeteristics of scripting
+languages.
+
+A first important distinction regarding scripting languages is between
+data-definition and runtime scripting languages. Data-definition languages are
+used to specify in-game objects often in a declarative way. Runtime languages,
+the main topic of this paper, are used to control events occuring inside the
+game and engine.
+
+\begin{description}
+\item[execution mode] Scripting languages are generally interpreted by a
+virtual machine (e.g. Ruby) or JIT-compiled(e.g. Python). JIT-compilation
+compiles the source or an intermediate format (e.g. Java byte code) upon first
+execution. This allows for optimizations for specific platforms.
+%TODO find Resource for JIT compilation
+\item[lightweightness] As scripting languages need to either run in embedded
+systems or need best performance they are generally very lightweight.
+%TODO noch bisserl überarbeiten
+\item[rapid iteration] On the fly reloading and interpretation are two methods
+for achieving rapid iteration. Generally game engines, as most bigger software
+products, need to support rapid iteration for embedded scripting languages to
+rapid development. Through their dynamicity Scripting languages also support
+more rapid iteration and more powerful runtime features.
+\item[domain specifity] Scripting languages are often created to suite a
+specific need. For example resource handling, error handling or cuncurrency can
+be done in a way to prevent errors from happening. Errors can be prevented
+through syntax tailored to a special need.
+\end{description}
+
 \subsection{Why use a Scripting language}
 This section reasons why to use a scripting language in a broader sense than
 for game development alone, but uses game development as an example.
+
+Scripting languages are currently gaining lot of ground in Software Engineering.
+% TODO find resource
+Through their dynamic nature they allow, as explained in
+\ref{sec-characteristics}, a more rapid iteration and more powerful runtime
+features. This, in combination with TDD\footnote{Test Driven Development}, can
+lead to high quality software with quicker development. Especially in
+Web-Development 
 
 \section{Scripting languages in the wild}
 Which scripting languages are there and how are they used.
