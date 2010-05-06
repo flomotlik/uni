@@ -3,8 +3,8 @@
 \begin{document}
 
 %Title Page
-\author{Florian Motlik}
-\title{Scripting}
+\author{Florian Motlik - 0425525}
+\title{Scripting in Game Engines}
 \date{\today}
 \maketitle
 
@@ -13,9 +13,13 @@
 \newpage
 
 \begin{abstract}
-%TODO
-Some Abstract Text
-%TODO give description of word Script
+This paper discusses the Scripting chapter of \cite{gregory2009game}. Basics
+of a scripting language as well as interaction with the Game engine will presented.
+
+Scripting languages are used today to rapidly iterate in the development of software.
+They often provide an easy and domain specific syntax. Together with game engine 
+characteristics like event handling or multithreading they provide a fast and scalable
+approach for developing games.
 \end{abstract}
 
 \section{What is a Scripting Language}
@@ -30,7 +34,7 @@ Scripting languages can be traditionally described as lightweight easy to use
 languages for small scripting and embedded purposes. For example scripting
 languages like PERL or Python are heavily used in server infrastructure to
 provide common tasks. Their easy, but powerful syntax often leads to an increased
-productivity in writing applications. For those reasons they also often used to
+productivity in writing applications. For those reasons they are also often used to
 script bigger applications like games.
 
 Although they started as languages for small tasks scripting languages have
@@ -52,14 +56,12 @@ game and engine.
 virtual machine (e.g. Ruby) or JIT-compiled(e.g. Python). JIT-compilation
 compiles the source or an intermediate format (e.g. Java byte code) upon first
 execution. This allows for optimizations for specific platforms.
-%TODO find Resource for JIT compilation
 \item[lightweightness] As scripting languages need to either run in embedded
 systems or need best performance they are generally very lightweight.
-%TODO noch bisserl überarbeiten
 \item[rapid iteration] On the fly reloading and interpretation are two methods
 for achieving rapid iteration. Generally game engines, as most bigger software
-products, need to support rapid iteration for embedded scripting languages to
-rapid development. Through their dynamicity Scripting languages also support
+products, need to support rapid iteration for embedded scripting languages. 
+Through their dynamicity Scripting languages also support
 more rapid iteration and more powerful runtime features.
 \item[domain specifity] Scripting languages are often created to suite a
 specific need. For example resource handling, error handling or cuncurrency can
@@ -72,7 +74,6 @@ This section reasons why to use a scripting language in a broader sense than
 for game development alone, but uses game development as an example.
 
 Scripting languages are currently gaining lot of ground in Software Engineering.
-% TODO find resource
 Through their dynamic nature they allow, as explained in
 \ref{sec-characteristics}, a more rapid iteration and more powerful runtime
 features. This, in combination with TDD\footnote{Test Driven Development}, can
@@ -98,12 +99,6 @@ much easier.
 To summarize scripting languages can support faster iterations and
 therefore more trial and error during a project.
 
-\section{Scripting languages in the wild}
-This section will cover scripting languages currently in use. 
-
-Common scripting languages in use today are Ruby, Python or Lua. Languages
-designed specifically for use in game engines are QuakeC or UnrealScript.
-
 \section{Scripting and the Game Engine}
 Interaction between scripts and the game engine will be the topic of this
 section.
@@ -118,11 +113,10 @@ any specific purpose, but are probably scattered throughout the system. This
 leads to the game being easier to change by users or other developers.
 \item[Event Handlers] Scripts that get specifically called to react to events
 happening in the game are Event Handlers. The event handling process will be
-described in more detail in subsection
-%TODO add ref to subsection
+described in more detail in subsection \ref{event-handling}
 \item[Script driven engine] Some engines, like Panda 3D, use a script language
 as their primary programming language to develop the game. Native libraries are
-only used for speed critical features and are called from the scrips. All non
+only used for speed critical features and are called from the scripts. All non
 critical code is written in the scripting language and thus easier to change.
 
 \end{description}
@@ -130,16 +124,64 @@ critical code is written in the scripting language and thus easier to change.
 \subsection{Native language Interface}
 As scripting languages tend to be much slower than their native counterparts
 some features need to be implemented in a lower level language. Consider for
-hardware intensive and often used algorithms for matrix transformation. They
+example a hardware intensive and often used algorithm like matrix transformations. They
 need to be run often and take considerable time. Thus a low level library written
 for the specific environment (OS, Processor) can give a huge performance benefit.
 
-Native language Interfaces have to be supported by the scripting runtime. It can
+Native language interfaces have to be supported by the scripting runtime. It can
 take names and values for a specific call and map those onto the native language,
-which will probably be C/C++.
+which will probably be C/C++. Different languages implement this feature either
+transparently, like Python, or more directly. Python uses method tables to store
+every method an object has. These can be implemented in C without the user of the
+library seeing any difference to a default python implementation.
 
-\subsection{Event Handling}
+\subsection{Game Object Handles}
+As scripts have to interact with different game objects the way to address them
+becomes very important. As game objects can potentially be implemented in a
+native language a mapping from the native languages way to address an object
+(e.g. pointers) to the scripts way (e.g. name) must be implemented. Three
+different ways to address that problem are
+\begin{itemize}
+\item numeric ids
+\item string ids
+\item hashed string ids
+\end{itemize}
+
+Integer ids have the advantage of fast runtime performance, but the disadvantage
+that they are hard to read and interpret by humans. String ids on the other hand
+are easy to interpret by humans, but show much slower runtime performance. A 
+compromise between the two is hashing the strings to integers during compilation
+or when they are run first. This way they are still readable during development,
+but have much better runtime performance.
+
+\subsection{Event Handling} \label{event-handling}
+Events are used ubiquitously in game engine systems. Events are mostly sent to and
+processed by objects. These objects can have scripts attached that react to a
+certain event being fired. Thus scripts can be reused for different scenarios and
+objects. Objects can also have several scripts added for a specific event. Thus
+the whole system becomes very loosely coupled and thus easy to change.
+
+As well as objects scripts can be attached to other entities in a game. Regions
+or specific time intervals are two possibilities.
+
+Another very powerful feature is if scripts not only handle events, but also
+send them. This way the coupling between different scripts can be loosened
+even more.
 
 \subsection{Multi-Threading}
+With todays multi core infrastructure multi-threading becomes prevailant in lots of
+scenarios. Game engines are no different in that regard.
 
+The main difference in a game engine multithreading environment to other environments
+is that scheduling is done via cooperative multitasking. With this scheduling
+technique the script is not interrupted, but yields control over the environment
+at specific predefined states. This way no action or animation in the game is suddenly
+interrupted.
+When yielding the control scripts can define certain events to wait for, so they
+get reactivated again. The game engine can then suspend the script and wake it up
+accordingly.
+
+
+\bibliographystyle{plain}
+\bibliography{references}
 \end{document}
