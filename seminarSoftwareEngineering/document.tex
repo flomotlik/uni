@@ -113,12 +113,30 @@ Scripting can be used in several scenarios inside a game engine.
 \begin{description}
 \item[Callbacks] Scripted callbacks can be used to extend the functionality in
 small parts. The game is largely implemented in the native language of the
-engine, but for some events scripts get called.
-\item[Event Handlers]
-\item[Script driven engine]
+engine, but for some events scripts get called. The scripts are not used for
+any specific purpose, but are probably scattered throughout the system. This
+leads to the game being easier to change by users or other developers.
+\item[Event Handlers] Scripts that get specifically called to react to events
+happening in the game are Event Handlers. The event handling process will be
+described in more detail in subsection
+%TODO add ref to subsection
+\item[Script driven engine] Some engines, like Panda 3D, use a script language
+as their primary programming language to develop the game. Native libraries are
+only used for speed critical features and are called from the scrips. All non
+critical code is written in the scripting language and thus easier to change.
+
 \end{description}
 
 \subsection{Native language Interface}
+As scripting languages tend to be much slower than their native counterparts
+some features need to be implemented in a lower level language. Consider for
+hardware intensive and often used algorithms for matrix transformation. They
+need to be run often and take considerable time. Thus a low level library written
+for the specific environment (OS, Processor) can give a huge performance benefit.
+
+Native language Interfaces have to be supported by the scripting runtime. It can
+take names and values for a specific call and map those onto the native language,
+which will probably be C/C++.
 
 \subsection{Event Handling}
 
